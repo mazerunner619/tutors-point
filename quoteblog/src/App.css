@@ -1,0 +1,200 @@
+/* .QuoteApppp {
+  text-align: center;
+} */
+
+body {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+.plusButton {
+  transition-duration: 0.5s;
+}
+.plusButton:hover {
+  transform: rotateZ(90deg);
+}
+
+#heading {
+  /* color: #04421c; */
+  color: rgb(177, 115, 0);
+  text-shadow: 2px 2px 3px green;
+  margin: 0 10% 10px 10%;
+  padding: 5px;
+  border-radius: 10px;
+  /* font-family: "Comfortaa", cursive; */
+  text-align: center;
+  font-size: x-large;
+  font-weight: bolder;
+  border-bottom: 3px solid rgb(177, 115, 0);
+  background-color: #8ee4af;
+}
+
+.classCards {
+  transition-duration: 0.2s;
+  border-radius: 10px;
+}
+
+.classCards:hover {
+  box-shadow: 3px 5px 10px grey;
+  transform: translateY(-3px);
+}
+
+.classroom-tabs {
+  margin: 3%;
+}
+
+#background-green {
+  background-color: #8ee4af;
+  box-shadow: 3px 3px 15px black;
+  border-radius: 0 0 10px 10px;
+}
+#class-comment-form {
+  margin-bottom: 15px;
+}
+
+#meet-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  margin: 0 auto;
+  font-size: 30px;
+}
+
+/* #meet-button:hover {
+  border: 0;
+  box-shadow: 2px 2px 4px black;
+  background-color: #ec7b128e;
+} */
+
+#class-comment-form :first-child {
+  /* font-family: "Comfortaa", cursive; */
+  border: 0;
+  box-shadow: 7px 7px 20px black;
+  border-radius: 10px;
+  color: rgb(0, 81, 0);
+}
+#comment-card {
+  border-left: 5px solid orange;
+  margin-top: 4px;
+}
+#commentor-name {
+  margin-right: 5px;
+  opacity: 0.84;
+  text-decoration: underline;
+  /* font-family: fantasy; */
+  font-weight: bolder;
+  display: inline;
+}
+
+#comment {
+  display: block;
+  /* font-family: "Comfortaa", cursive; */
+  word-wrap: break-word;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+#commentor-date {
+  float: right;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+#comment-button {
+  margin: 10px auto;
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  background-color: white;
+  padding: 3px;
+  color: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition-duration: 0.4s;
+  box-shadow: 7px 7px 20px black;
+  cursor: pointer;
+}
+#comment-button:hover {
+  color: white;
+  background-color: green;
+  box-shadow: 7px 7px 10px black;
+}
+
+#authPage {
+  background: rgb(218, 210, 210);
+  padding: 5%;
+  border-radius: 10px;
+  text-align: center;
+  width: 75vw;
+  margin: 10vh auto;
+  height: auto;
+}
+
+#class-comment {
+  margin: 15px 0;
+  width: 100%;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  font-size: large;
+  /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+  font-weight: bolder;
+  background-color: #ec7b12;
+  padding: 2px;
+  box-shadow: 2px 2px 5px black;
+}
+
+#dashboard {
+  width: 100%;
+  padding: 5%;
+  margin: 0 auto;
+  height: 100vh;
+}
+
+@media screen and (max-width: 450px) {
+  #comment {
+    font-size: smaller;
+  }
+  #commentor-name {
+    font-size: smaller;
+  }
+
+  #class-comment-form :first-child {
+    font-size: smaller;
+  }
+
+  #authPage {
+    background: rgb(218, 210, 210);
+    padding: 2%;
+    margin: 1%;
+    text-align: center;
+    width: 100vw;
+    height: auto;
+    align-items: center;
+  }
+
+  .classroom-tabs {
+    margin: 0%;
+    padding: 1%;
+  }
+
+  #dashboard {
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
+}

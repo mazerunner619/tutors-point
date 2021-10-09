@@ -1,0 +1,33 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix quoteblog && npm run build --prefix quoteblog"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "cloudinary": "^1.26.3",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "generate-unique-id": "^2.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "messagebird": "^3.6.4",
+    "mongoose": "^5.13.2",
+    "multer": "^1.4.3",
+    "node": "^16.5.0",
+    "nodemon": "^2.0.13",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
+    "twilio": "^3.66.1"
+  },
+  "description": ""
+}

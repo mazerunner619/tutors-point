@@ -1,0 +1,19 @@
+GET  http://localhost:5000/getC HTTP/1.1
+
+###
+
+GET  http://localhost:5000/auth/612a41b5b9233c076497f06b/student/classes HTTP/1.1
+
+### 
+POST  http://localhost:5000/auth/612a41b5b9233c076497f06b/joinclassroom/148759273 HTTP/1.1
+
+### 
+GET  http://localhost:5000/clearT HTTP/1.1
+
+###
+GET http://localhost:5000/exists
+
+Content-Type: application/json
+{
+    "_id":"+917061951535",
+}
