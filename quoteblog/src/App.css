@@ -60,6 +60,16 @@ body {
   margin-bottom: 15px;
 }
 
+#dates-bottom-right {
+  font-size: 10px;
+  margin-left: auto;
+  color: rgba(0, 0, 0, 0.612);
+  background-color: #8ee4af;
+  width: fit-content;
+  border-radius: 5px;
+  padding: 1px;
+}
+
 #meet-button {
   display: flex;
   justify-content: center;

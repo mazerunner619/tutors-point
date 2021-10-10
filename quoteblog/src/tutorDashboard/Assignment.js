@@ -17,10 +17,10 @@ export default function Classroom({match}) {
 
     const [evaluate, setEvaluate] = useState(false);
     const [toEvaluate, setToEvaluate] = useState({
-      userid : loggedUser._id,
       AID : match.params.id,
       SID : null,
-      assignment : null
+      assignment : null,
+      userid : ""
     });
 
     const [assignmentS, setAssignmentS] = useState([]);
@@ -100,6 +100,7 @@ return (
     show={evaluate}
     onHide={() => setEvaluate(false)}
        assignment = {toEvaluate}
+       userid = {loggedUser._id}
       />
 
     </div>

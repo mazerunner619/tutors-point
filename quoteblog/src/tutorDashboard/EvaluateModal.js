@@ -3,7 +3,7 @@ import {Modal, Button, CloseButton ,Row, Image,Form} from 'react-bootstrap'
 import axios from 'axios';
 import { useHistory } from 'react-router';
 
-export default function Evaluate({assignment, onHide, show}) {
+export default function Evaluate({assignment, onHide, show, userid}) {
 
   const [evaluate, setEvaluate]=  useState({
     remarks : "",
@@ -14,7 +14,9 @@ export default function Evaluate({assignment, onHide, show}) {
 
 async function HandleClick(e){
   setSaving(1);
-const {data} =  await axios.post(`/:${assignment.userid}/auth/assignment/${assignment.AID}/evaluate/${assignment.SID}`, evaluate);
+  console.log('From Atif with Love ',assignment)
+const {data} =  await axios.post(`/auth/${userid}/assignment/${assignment.AID}/evaluate/${assignment.SID}`, evaluate);
+alert(data);
 setSaving(0);
 onHide();
 window.location.reload(0);

@@ -17,7 +17,7 @@ import DatePicker from 'react-date-picker';
 
 export default function Classroom({match}) {
 
-    const {loggedUser} = useContext(AuthContext);
+    const {loggedUser, getLogged} = useContext(AuthContext);
     const [classData, setClassData] = useState({});
     const [classR, setClassR] = useState([]);
     const [classA, setClassA] = useState([]);
@@ -93,7 +93,14 @@ export default function Classroom({match}) {
 
 useEffect( () => {
   const getComments = async() => {
-    const {data} = await axios.post(`/auth/${loggedUser._id}/comment/${match.params.id}`, {comment, type : ''});
+    let userid;
+    if(loggedUser && loggedUser._id)
+    userid = loggedUser._id;
+    else{
+      const {_id} = await getLogged();
+      userid = _id;
+    }
+    const {data} = await axios.post(`/auth/${userid}/comment/${match.params.id}`, {comment, type : ''});
     setClassC(data);
   } 
   getComments();
@@ -205,6 +212,7 @@ const assignmentArr = classA.map( CLASS =>
         <Button variant="primary">Open</Button>
       </LinkContainer>
   </Card.Body>
+  <span id = "dates-bottom-right">{fomatDate(CLASS.createdAt)}</span>
   </Card>
   </Col>
 );

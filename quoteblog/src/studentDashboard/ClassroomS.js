@@ -6,9 +6,7 @@ import AuthContext from '../context/authContext';
 import {ImCross,ImCheckmark, ImCopy} from 'react-icons/im'
 import {IoIosSend} from 'react-icons/io'
 import {FcVideoCall} from 'react-icons/fc'
-
 import {FaUserCircle} from 'react-icons/fa'
-
 
 import {MdContentCopy} from 'react-icons/md'
 
@@ -25,8 +23,6 @@ export default function Classroom({match}) {
     const [comment, setComment] = useState("");
     const [C, setC] = useState(0);
 
-
-    
 
     function fomatDate(date){
       let newDate = new Date(date).toLocaleDateString("en-US", {weekday : "short", month : "short", day : "numeric"});
@@ -211,11 +207,10 @@ return (
                   (e, CLASS._id)}>
 
                   {uploading?"turning in ..." : "Turn in Now"}
-                  </Button>
-               
+                  </Button>  
             }
-      
         </Card.Body>
+  <span id = "dates-bottom-right">{'uploaded At '}{fomatDate(CLASS.createdAt)}</span>
         </Card>
         </Col>
       )

@@ -112,12 +112,8 @@ router.get('/student/:userid/refreshassignments/:classroomid' ,async(req, res, n
         });
 
 
-        // const dataToSend = {
-        //     assignments : upateAss,
-        // }
-
 console.log(upateAss, 'sending ...');
-        res.send(upateAss);   
+        res.send(upateAss.reverse());   
     }catch(err){
         return next({
             message : err.message
@@ -229,6 +225,7 @@ try{
 //=========================evaluate assignment => tutor ???authenticateUser
 router.post('/:userid/assignment/:AID/evaluate/:SID', authenticateUser,async(req, res, next) => {
     try{
+    console.log('operation started !');
 
         const {score, remarks} = req.body;
     const {userid,SID, AID} = req.params;
@@ -248,8 +245,6 @@ router.post('/:userid/assignment/:AID/evaluate/:SID', authenticateUser,async(req
         status : false
     });
 
-    console.log(assignment.doneby)
-
     const updateDoneBy = assignment.doneby.map( upd => {
         console.log('upd',upd);
         if(SID.toString() === upd.student.toString()){
@@ -266,9 +261,9 @@ router.post('/:userid/assignment/:AID/evaluate/:SID', authenticateUser,async(req
         }
     })
 
-    // console.log('result => ',updateDoneBy);
     assignment.doneby = updateDoneBy;
     await assignment.save();
+
     console.log('operation done !');
     res.send('evaluated successfully');
 
@@ -450,6 +445,7 @@ router.get('/student/:userid/classroom/:classroomid' ,async(req, res, next) => {
 
                 upateAss.push({
                     _id : assi._id,
+                    createdAt : assi.createdAt,
                     description : assi.description,
                     subject : assi.subject,
                     topic : assi.topic,
@@ -464,6 +460,7 @@ router.get('/student/:userid/classroom/:classroomid' ,async(req, res, next) => {
 
                 upateAss.push({
                         _id : assi._id,
+                        createdAt : assi.createdAt,
                         description : assi.description,
                         subject : assi.subject,
                         topic : assi.topic,
@@ -484,7 +481,7 @@ router.get('/student/:userid/classroom/:classroomid' ,async(req, res, next) => {
                 pending : upateAss.length - turnedAsignments,
                 meeting : classroom.meeting
             },
-            assignments : upateAss,
+            assignments : upateAss.reverse(),
             enrolledStudents : classroom.enrolledStudents
         }
 
