@@ -4,16 +4,21 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix quoteblog",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix quoteblog && npm run build --prefix quoteblog"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix quoteblog && npm run build --prefix quoteblog",
+    "render-postbuild": "npm install --prefix quoteblog && npm run build --prefix quoteblog"
   },
   "keywords": [],
-  "author": "",
+  "author": "mazerunner619 | Atif",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cloudinary": "^1.26.3",
+    "concurrently": "^7.6.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^9.0.2",
