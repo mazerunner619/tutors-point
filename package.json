@@ -8,7 +8,7 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "render-postbuild": "yarn && npm install --prefix client && npm run build --prefix client"
+    "render-postbuild": "npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
@@ -23,15 +23,15 @@
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "generate-unique-id": "^2.0.1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "messagebird": "^3.6.4",
     "mongoose": "^5.13.2",
     "multer": "^1.4.3",
     "node": "^16.5.0",
     "nodemon": "^2.0.13",
-    "passport": "^0.4.1",
+    "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
-    "twilio": "^3.66.1"
+    "twilio": "^4.8.0"
   },
   "description": ""
 }
