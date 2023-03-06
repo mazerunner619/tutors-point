@@ -8,7 +8,7 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix front",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "render-postbuild": "yarn && npm install --prefix front && npm run build --prefix front"
+    "render-postbuild": "npm install --prefix front && npm run build --prefix front"
   },
   "keywords": [],
   "author": "",
