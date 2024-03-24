@@ -10,11 +10,32 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
 }
+.popup-container{
+  background: #0000001b;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  z-index: 1;
+}
+
+.popup{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  border: 0;
+}
 
 * {
   margin: 0;
   padding: 0;
 }
+
+.auth-error{
+  color: red;
+}
+
 .plusButton {
   transition-duration: 0.5s;
 }

@@ -20,20 +20,17 @@ function Router() {
 
   return ( 
   <BrowserRouter>
-      <Navi />
-      
-  <Route path = "/" exact>
-        <Login />
-  </Route>
-  <Route path="/dasht" component = {DashT} />
-  <Route path="/dashs" component = {DashS} />
-  <Route path="/signup" component= {Signup} />
-  <Route path="/classroomt/:id" component= {ClassroomT} />
-  <Route path="/classrooms/:id/:sid" component= {ClassroomS} />
-  <Route path="/assignment/:id" component= {Assignment} />
-
-  
-      </BrowserRouter>
+  <Navi />
+    <Route path = "/" exact>
+          <Login />
+    </Route>
+    <Route path="/dasht" component = {DashT} />
+    <Route path="/dashs" component = {DashS} />
+    <Route path="/signup" component= {Signup} />
+    <Route path="/classroomt/:id" component= {ClassroomT} />
+    <Route path="/classrooms/:id/:sid" component= {ClassroomS} />
+    <Route path="/assignment/:id" component= {Assignment} />
+    </BrowserRouter>
   );
 
 }
