@@ -4,10 +4,10 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
+    "dev-backend" : "set NODE_ENV=development&& nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server.js",
     "client": "npm start --prefix front",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run start\" \"npm run client\"",
     "render-postbuild": "npm install --prefix front && npm run build --prefix front"
   },
   "keywords": [],
@@ -28,7 +28,7 @@
     "mongoose": "^5.13.2",
     "multer": "^1.4.3",
     "node": "^16.5.0",
-    "nodemon": "^2.0.13",
+    "nodemon": "^2.0.22",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
     "twilio": "^4.8.0"

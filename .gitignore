@@ -2,3 +2,5 @@ gitOriginal
 node_modules
 frontend
 .env
+.env.*
+test-doc.txt
