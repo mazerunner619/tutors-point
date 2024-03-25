@@ -13,6 +13,7 @@ import {
   SEND_REQUEST,
   SEND_REQUEST_FAILURE,
   SEND_REQUEST_SUCCESS,
+  CLEAR_CLASSROOM,
 } from "../actionTypes";
 
 import { setAuthToken } from "../../Utils/utilFunctions";
@@ -128,6 +129,7 @@ export const logout = (hist) => async (dispatch) => {
     dispatch({ type: LOGOUT });
     await axios.post("/auth/logout");
     dispatch({ type: LOGOUT_SUCCESS });
+    dispatch({ type: CLEAR_CLASSROOM });
     localStorage.clear();
     hist.push("");
   } catch (error) {

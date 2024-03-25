@@ -25,7 +25,7 @@ login.login = async (req, res, next) => {
         );
         console.log("logged in as " + user.name);
         res
-          .cookie("token", token, { httpOnly: true })
+          // .cookie("token", token, { httpOnly: true })
           .send({ data: user, jwtToken: token, message: "OK" });
       } else {
         return next(createError("incorrect password", 400));

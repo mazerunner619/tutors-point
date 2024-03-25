@@ -9,15 +9,11 @@ import {
   Table,
   Tabs,
   Form,
-  Accordion,
   Card,
   Row,
   Col,
 } from "react-bootstrap";
-import axios from "axios";
 import { useHistory } from "react-router";
-import AuthContext from "../context/authContext";
-import { ImCross, ImCheckmark, ImCopy } from "react-icons/im";
 import { IoIosSend } from "react-icons/io";
 import { FcVideoCall } from "react-icons/fc";
 import { FaUserCircle } from "react-icons/fa";
@@ -29,11 +25,6 @@ import {
   newComment,
   submitAssignment,
 } from "../reduxStore/actions/classroom";
-import {
-  LOAD_CLASS,
-  LOAD_CLASS_FAILURE,
-  LOAD_CLASS_SUCCESS,
-} from "../reduxStore/actionTypes";
 
 export default function Classroom({ match }) {
   const dispatch = useDispatch();
@@ -47,12 +38,6 @@ export default function Classroom({ match }) {
   } = useSelector((state) => state.classReducer);
   const hist = useHistory();
 
-  const { logged, getLogged, loggedUser } = useContext(AuthContext);
-  const [classData, setClassData] = useState({});
-  const [classA, setClassA] = useState([]);
-  const [classS, setClassS] = useState([]);
-  const [classC, setClassC] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [submitFile, setSubmitFile] = useState(null);
   const [comment, setComment] = useState("");

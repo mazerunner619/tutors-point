@@ -1,10 +1,7 @@
 import "./App.css";
-import { Navbar, Nav, Row, Spinner, useAccordionToggle } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
-import { useContext, useEffect, useState } from "react";
-import AuthContext from "./context/authContext";
 import { LinkContainer } from "react-router-bootstrap";
-import axios from "axios";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { logout as LOGOUT } from "./reduxStore/actions/auth";

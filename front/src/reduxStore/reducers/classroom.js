@@ -24,6 +24,7 @@ import {
   UPLOAD_ASSIGNMENT_FAILURE,
   UPLOAD_ASSIGNMENT_SUCCESS,
   SUBMIT_ASSIGNMENT_SUCCESS,
+  CLEAR_CLASSROOM,
 } from "../actionTypes";
 
 const initialState = {
@@ -135,6 +136,9 @@ const classReducer = (state = initialState, action) => {
         },
       };
     }
+
+    case CLEAR_CLASSROOM:
+      return initialState;
 
     default:
       return state;

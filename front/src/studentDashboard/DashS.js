@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Button,
@@ -13,7 +13,6 @@ import {
 } from "react-bootstrap";
 import MySpinner from "../Utils/Spinner";
 import { LinkContainer } from "react-router-bootstrap";
-import AuthContext from "../context/authContext";
 import { IoIosAdd } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -28,10 +27,6 @@ export default function DashS() {
   const { user, loading, send_request_processing } = useSelector(
     (state) => state.authReducer
   );
-  const { logged, getLogged, loggedUser } = useContext(AuthContext);
-  const [reRender, setRerender] = useState(0);
-  // const [loading, setLoading] = useState(false);
-  const [msg, setMsg] = useState("");
   const [classForm, setClassForm] = useState("");
 
   useEffect(() => {
@@ -178,9 +173,7 @@ export default function DashS() {
                           value={classForm}
                           onChange={(e) => setClassForm(e.target.value)}
                         />
-                        <b>
-                          <i>{msg}</i>
-                        </b>
+                        <b></b>
                         <div className="p-3">
                           <Form.Group></Form.Group>
 

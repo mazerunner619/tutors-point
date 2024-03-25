@@ -16,6 +16,8 @@ export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 // classroom actions
 // for student -> all excluding pending request
 // for tutor -> all classroom details
+
+export const CLEAR_CLASSROOM = "CLEAR_CLASSROOM";
 export const LOAD_CLASS = "LOAD_CLASS";
 export const LOAD_CLASS_SUCCESS = "LOAD_CLASS_SUCCESS";
 export const LOAD_CLASS_FAILURE = "LOAD_CLASS_FAILURE";
