@@ -40,6 +40,7 @@ export default function Classroom({ match }) {
     upload_assignment_error,
     upload_assignment_processing,
     class_error,
+    loading: classLoading,
   } = useSelector((state) => state.classReducer);
   const hist = useHistory();
 
@@ -247,7 +248,7 @@ export default function Classroom({ match }) {
 
   return (
     <div style={{ background: "#8EE4AF", minHeight: "100vh", marginTop: "0" }}>
-      {class_ !== null && class_ !== undefined ? (
+      {classLoading === false && class_ ? (
         <>
           <Tabs
             defaultActiveKey="classroom"

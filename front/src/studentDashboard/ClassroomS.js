@@ -105,7 +105,7 @@ export default function Classroom({ match }) {
 
   return (
     <div style={{ background: "#8EE4AF", minHeight: "100vh", marginTop: "0" }}>
-      {class_ !== -null && class_ !== undefined ? (
+      {classLoading === false && class_ ? (
         <>
           <Tabs
             defaultActiveKey="classroom"
