@@ -30,9 +30,11 @@ export const loadClass = (userid, classroomid) => async (dispatch) => {
       const { data } = await axios.get(
         `/class/student/${userid}/classroom/${classroomid}`
       );
+      console.log("class_ : ", data);
       dispatch({ type: LOAD_CLASS_SUCCESS, payload: data.data });
     } else {
       const { data } = await axios.get(`/class/classroom/${classroomid}`);
+      console.log("class_ : ", data);
       dispatch({ type: LOAD_CLASS_SUCCESS, payload: data.data });
     }
   } catch (error) {
