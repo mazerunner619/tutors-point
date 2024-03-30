@@ -119,6 +119,13 @@ export default function Classroom({ match }) {
     if (meet.id && meet.time && meet.date) {
       const newDateStart = new Date(`${meet.date}T${meet.time}:00`);
       const newDateEnd = new Date(`${meet.date}T${meet.timeEnd}:00`);
+      if (
+        newDateEnd.getTime() <= newDateStart.getTime() ||
+        newDateStart.getTime() < Date.now()
+      ) {
+        alert("illogical timings! ⚠️ unfeasible");
+        return;
+      }
       dispatch(
         newMeeting(user._id, match.params.id, {
           link: meet.id,
@@ -132,7 +139,7 @@ export default function Classroom({ match }) {
         timeEnd: "",
         date: new Date(),
       });
-    }
+    } else alert("all fields are required!");
   }
   const copytoclipboard = (e) => {
     navigator.clipboard.writeText(e.target.id);
@@ -240,7 +247,7 @@ export default function Classroom({ match }) {
 
   return (
     <div style={{ background: "#8EE4AF", minHeight: "100vh", marginTop: "0" }}>
-      {class_ !== null ? (
+      {[null, undefined].indexOf(class_) === -1 ? (
         <>
           <Tabs
             defaultActiveKey="classroom"
@@ -253,7 +260,7 @@ export default function Classroom({ match }) {
               title="Summary"
             >
               <>
-                {class_ && class_.meeting && class_.meeting.link && (
+                {class_.meeting && class_.meeting.link && (
                   <>
                     <Button id="meet-button">
                       <a

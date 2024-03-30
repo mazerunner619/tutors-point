@@ -128,7 +128,7 @@ export const newMeeting =
         meetObj
       );
       dispatch({ type: NEW_MEETING_SUCCESS, payload: data.data });
-      alert("meeting schedules");
+      alert("meeting scheduled 🤝");
     } catch (error) {
       if (error.response && error.response.data) {
         alert(error.response.data.error.message);

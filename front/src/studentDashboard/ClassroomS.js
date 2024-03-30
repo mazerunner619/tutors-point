@@ -105,7 +105,7 @@ export default function Classroom({ match }) {
 
   return (
     <div style={{ background: "#8EE4AF", minHeight: "100vh", marginTop: "0" }}>
-      {class_ !== null ? (
+      {[null, undefined].indexOf(class_) === -1 ? (
         <>
           <Tabs
             defaultActiveKey="classroom"
@@ -118,7 +118,7 @@ export default function Classroom({ match }) {
               title="Summary"
             >
               <>
-                {class_ && class_.meeting && class_.meeting.link && (
+                {class_.meeting && class_.meeting.link && (
                   <>
                     <Button id="meet-button">
                       <a
