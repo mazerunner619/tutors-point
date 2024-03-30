@@ -253,7 +253,7 @@ export default function Classroom({ match }) {
               title="Summary"
             >
               <>
-                {class_.meeting && class_.meeting.link && (
+                {class_ && class_.meeting && class_.meeting.link && (
                   <>
                     <Button id="meet-button">
                       <a
