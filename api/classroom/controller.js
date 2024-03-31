@@ -93,6 +93,7 @@ classroom.classById = async (req, res, next) => {
     });
 
     classroom.assignments = assignments;
+    res.setHeader("Content-Type", "application/json");
     res.send({ data: classroom, message: "OK" });
   } catch (err) {
     return next(createError(err.message, err.statusCode));

@@ -4,14 +4,6 @@ const mongoose = require("mongoose");
 const path = require("path");
 
 module.exports = (app, express) => {
-  if (["development"].indexOf(process.env.NODE_ENV) !== -1) {
-    require("dotenv").config({
-      path: path.join(__dirname, `.env.${process.env.NODE_ENV}`),
-    });
-  } else {
-    require("dotenv").config();
-  }
-
   app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
@@ -32,11 +24,4 @@ module.exports = (app, express) => {
       }
     }
   );
-
-  if (process.env.NODE_ENV == "production") {
-    app.use(express.static("front/build"));
-    app.get("*", (req, res) => {
-      res.sendFile(path.resolve(__dirname, "front", "build", "index.html"));
-    });
-  }
 };

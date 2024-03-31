@@ -24,9 +24,9 @@ login.login = async (req, res, next) => {
           process.env.JWT_SECRET_KEY
         );
         console.log("logged in as " + user.name);
-        res
-          // .cookie("token", token, { httpOnly: true })
-          .send({ data: user, jwtToken: token, message: "OK" });
+        // res
+        // .cookie("token", token, { httpOnly: true })
+        res.send({ data: user, jwtToken: token, message: "OK" });
       } else {
         return next(createError("incorrect password", 400));
       }
@@ -70,12 +70,12 @@ login.signup = async (req, res, next) => {
 };
 
 login.logout = async (req, res) => {
-  res
-    .cookie("token", "", {
-      httpOnly: true,
-      expires: new Date(0),
-    })
-    .send({ data: "", message: "OK" });
+  // res
+  //   .cookie("token", "", {
+  //     httpOnly: true,
+  //     expires: new Date(0),
+  //   })
+  res.send({ data: "", message: "OK" });
 };
 
 login.currentLoggedInUser = async (req, res, next) => {

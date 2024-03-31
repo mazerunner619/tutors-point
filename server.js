@@ -1,5 +1,14 @@
 const express = require("express");
 const app = express();
+const PORT = process.env.PORT || 5000;
+
+// if (["development"].indexOf(process.env.NODE_ENV) !== -1) {
+//   require("dotenv").config({
+//     path: path.join(__dirname, `.env.${process.env.NODE_ENV}`),
+//   });
+// } else {
+require("dotenv").config();
+// }
 
 // dependencies
 require("./dependencies")(app, express);
@@ -16,7 +25,13 @@ app.use(function (err, req, res, next) {
   });
 });
 
-const PORT = process.env.PORT || 5000;
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static("front/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "front", "build", "index.html"));
+  });
+}
+
 app.listen(PORT, () => {
   console.log(`Server is running on port:` + PORT);
 });
