@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 5000;
+const path = require("path");
 
 // if (["development"].indexOf(process.env.NODE_ENV) !== -1) {
 //   require("dotenv").config({

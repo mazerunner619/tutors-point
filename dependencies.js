@@ -1,7 +1,6 @@
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-const path = require("path");
 
 module.exports = (app, express) => {
   app.use(cors());
