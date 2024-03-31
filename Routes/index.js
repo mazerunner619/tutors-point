@@ -7,7 +7,4 @@ module.exports = (app) => {
   app.use("/auth", authRoute);
   app.use("/asn", assRoute);
   app.use("/class", classRoute);
-  app.get("/*", (req, res, next) => {
-    return next(createError("Not Found!", 404));
-  });
 };
