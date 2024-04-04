@@ -4,3 +4,7 @@ frontend
 .env
 .env.*
 test-doc.txt
+DB_clone
+test
+mailer.js
+utils/mailHelper.js

@@ -25,7 +25,9 @@ export default function Classroom({ match }) {
   const [assignmentS, setAssignmentS] = useState([]);
 
   useEffect(() => {
-    if (user === null) dispatch({ type: loadLoggedUser(hist) });
+    if (!user) {
+      dispatch(loadLoggedUser(hist));
+    }
     const getAssignment = async () => {
       const { data } = await axios.get(
         `/asn/assignment/${match.params.id}/get`

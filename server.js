@@ -3,13 +3,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const path = require("path");
 
-// if (["development"].indexOf(process.env.NODE_ENV) !== -1) {
-//   require("dotenv").config({
-//     path: path.join(__dirname, `.env.${process.env.NODE_ENV}`),
-//   });
-// } else {
-require("dotenv").config();
-// }
+if (["development", "testing"].indexOf(process.env.NODE_ENV) !== -1) {
+  require("dotenv").config({
+    path: path.join(__dirname, `.env.${process.env.NODE_ENV}`),
+  });
+} else {
+  require("dotenv").config();
+}
 
 // dependencies
 require("./dependencies")(app, express);
@@ -36,6 +36,8 @@ if (process.env.NODE_ENV == "production") {
 app.listen(PORT, () => {
   console.log(`Server is running on port:` + PORT);
 });
+
+module.exports = app;
 
 /*
 dummy data for testing

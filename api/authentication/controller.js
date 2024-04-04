@@ -20,10 +20,10 @@ login.login = async (req, res, next) => {
         const token = jwt.sign(
           {
             userId: user._id,
+            expiry: Date.now() + process.env.TOKEN_VALIDITY * 60 * 60 * 1000,
           },
           process.env.JWT_SECRET_KEY
         );
-        console.log("logged in as " + user.name);
         // res
         // .cookie("token", token, { httpOnly: true })
         res.send({ data: user, jwtToken: token, message: "OK" });
@@ -70,17 +70,13 @@ login.signup = async (req, res, next) => {
 };
 
 login.logout = async (req, res) => {
-  // res
-  //   .cookie("token", "", {
-  //     httpOnly: true,
-  //     expires: new Date(0),
-  //   })
   res.send({ data: "", message: "OK" });
 };
 
 login.currentLoggedInUser = async (req, res, next) => {
   try {
     // const token = req.cookies.token;
+    console.log("loqading current : ", req.headers.authorization);
     const token = req.headers.authorization.split(" ")[1];
     console.log("current logged in user => ", token);
     if (token) {

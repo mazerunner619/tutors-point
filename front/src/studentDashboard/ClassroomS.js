@@ -75,8 +75,8 @@ export default function Classroom({ match }) {
   }
 
   useEffect(() => {
-    dispatch(loadClass(match.params.sid, match.params.id));
     if (user === null) dispatch(loadLoggedUser(hist));
+    dispatch(loadClass(match.params.sid, match.params.id));
   }, []);
 
   async function addComment(e) {

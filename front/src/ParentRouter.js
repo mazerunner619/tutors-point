@@ -3,6 +3,7 @@ import "./App.css";
 import Navi from "./Navi";
 import { BrowserRouter, Route } from "react-router-dom";
 import Signup from "./auths/signup";
+import PreSignup from "./auths/pre-signup";
 import Login from "./auths/login";
 import DashS from "./studentDashboard/DashS";
 import DashT from "./tutorDashboard/DashT";

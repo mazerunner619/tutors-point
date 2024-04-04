@@ -135,8 +135,6 @@ assignment.evaluateAssignment = async (req, res, next) => {
 assignment.getById = async (req, res, next) => {
   try {
     const { AID } = req.params;
-    ////console.log(AID);
-
     const assignment = await db.Assignment.findById(AID)
       .populate({
         path: "doneby",
@@ -147,7 +145,6 @@ assignment.getById = async (req, res, next) => {
     if (!assignment) {
       return next(createError("Assignment not found !", 404));
     }
-    ////console.log('daata from backend=>',assignment);
     res.send(assignment);
   } catch (err) {
     return next(createError(err.message, err.statusCode));

@@ -46,8 +46,18 @@ export default function Exp({ match }) {
 
   async function handleS(e) {
     e.preventDefault();
-    info.as = e.target.name === "student" ? "Student" : "Tutor";
-    dispatch(signup(info, hist));
+    if (info.password === info.cpassword) {
+      for (const key in info) {
+        if (info[key] === "") {
+          alert("All fields are required!");
+          return;
+        }
+      }
+      info.as = e.target.name === "student" ? "Student" : "Tutor";
+      dispatch(signup(info, hist));
+    } else {
+      alert("passwords don't match");
+    }
   }
 
   return (

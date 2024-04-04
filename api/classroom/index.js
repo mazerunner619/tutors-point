@@ -2,7 +2,11 @@ const controller = require("./controller");
 const { authenticateUser } = require("../../utils/middleWares");
 
 const router = require("express").Router();
-router.post("/:userid/schedulemeet/:cid", controller.addMeetLink);
+router.post(
+  "/:userid/schedulemeet/:cid",
+  authenticateUser,
+  controller.addMeetLink
+);
 
 router.post(
   "/:userid/comment/:classroomid",
