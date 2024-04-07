@@ -3,7 +3,7 @@ import "./App.css";
 import Navi from "./Navi";
 import { BrowserRouter, Route } from "react-router-dom";
 import Signup from "./auths/signup";
-import PreSignup from "./auths/pre-signup";
+import verifySignupOtp from "./auths/verifySignupOtp";
 import Login from "./auths/login";
 import DashS from "./studentDashboard/DashS";
 import DashT from "./tutorDashboard/DashT";
@@ -20,7 +20,8 @@ function Router() {
       </Route>
       <Route path="/dasht" component={DashT} />
       <Route path="/dashs" component={DashS} />
-      <Route path="/signup" component={Signup} />
+      <Route path="/signup" exact component={Signup} />
+      <Route path="/signup/verify-otp" component={verifySignupOtp} />
       <Route path="/classroomt/:id" component={ClassroomT} />
       <Route path="/classrooms/:id/:sid" component={ClassroomS} />
       <Route path="/assignment/:id" component={Assignment} />

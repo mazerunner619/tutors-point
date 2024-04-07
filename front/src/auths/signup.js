@@ -5,16 +5,22 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useHistory } from "react-router";
 import $ from "jquery";
 import { useSelector, useDispatch } from "react-redux";
-import { signup, getCurrentUser } from "../reduxStore/actions/auth";
+import {
+  signup,
+  getCurrentUser,
+  sendSignupOtp,
+} from "../reduxStore/actions/auth";
 
 export default function Exp({ match }) {
   const { user } = useSelector((state) => state.authReducer);
-  const { loading, signup_error } = useSelector((state) => state.authReducer);
+  const { loading: signingUp, signup_error } = useSelector(
+    (state) => state.authReducer
+  );
   const dispatch = useDispatch();
   const hist = useHistory();
   const [confirm, setConfirm] = useState(false);
   const [info, setInfo] = useState({
-    as: "",
+    role: "",
     name: "",
     gender: "",
     dob: "",
@@ -46,6 +52,7 @@ export default function Exp({ match }) {
 
   async function handleS(e) {
     e.preventDefault();
+    info.role = e.target.name;
     if (info.password === info.cpassword) {
       for (const key in info) {
         if (info[key] === "") {
@@ -53,8 +60,8 @@ export default function Exp({ match }) {
           return;
         }
       }
-      info.as = e.target.name === "student" ? "Student" : "Tutor";
-      dispatch(signup(info, hist));
+      const { cpassword, ...newInfo } = info;
+      dispatch(sendSignupOtp(newInfo, hist));
     } else {
       alert("passwords don't match");
     }
@@ -152,15 +159,6 @@ export default function Exp({ match }) {
 
         <hr />
 
-        <Form.Group>
-          <Form.Check
-            style={{ display: "inline", float: "left", marginRight: "20px" }}
-            type="checkbox"
-            name="confirm"
-            label="confirm"
-            onChange={() => setConfirm(!confirm)}
-          />
-        </Form.Group>
         <p className="auth-error">
           {signup_error === null ? "" : signup_error.message}
         </p>
@@ -168,8 +166,8 @@ export default function Exp({ match }) {
           <Col>
             <Button
               variant="success"
-              disabled={!confirm}
-              name="tutor"
+              disabled={signingUp}
+              name="Tutor"
               type="submit"
               onClick={handleS}
             >
@@ -179,8 +177,8 @@ export default function Exp({ match }) {
           <Col>
             <Button
               variant="success"
-              disabled={!confirm}
-              name="student"
+              disabled={signingUp}
+              name="Student"
               type="submit"
               onClick={handleS}
             >

@@ -18,7 +18,7 @@ export default function Exp({ match }) {
   const [info, setInfo] = useState({
     email: "",
     password: "",
-    as: "",
+    role: "",
   });
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function Exp({ match }) {
   }
   async function handleS(e) {
     e.preventDefault();
-    info.as = e.target.name === "student" ? "Student" : "Tutor";
+    info.role = e.target.name;
     if (info.email && info.password) {
       dispatch(login(info, hist));
     } else {
@@ -90,7 +90,7 @@ export default function Exp({ match }) {
         <Button
           style={{ display: "inline" }}
           variant="success"
-          name="tutor"
+          name="Tutor"
           type="submit"
           onClick={handleS}
         >
@@ -98,7 +98,7 @@ export default function Exp({ match }) {
         </Button>{" "}
         <Button
           variant="success"
-          name="student"
+          name="Student"
           type="submit"
           onClick={handleS}
         >

@@ -34,7 +34,7 @@ export const getCurrentUser = (hist) => async (dispatch) => {
       clearLocalStorageAndAuthorization();
     }
   } catch (error) {
-    console.log("getCurrentUser Error => ", error);
+    console.log("getCurrentUser Error => ", error.message);
   }
 };
 
@@ -90,7 +90,7 @@ export const login = (body, hist) => async (dispatch) => {
     localStorage.setItem("jwtToken", JSON.stringify(data.jwtToken));
     localStorage.setItem("role", JSON.stringify(data.data.role));
     setAuthToken(data.jwtToken);
-    if (body.as === "Student") {
+    if (body.role === "Student") {
       hist.push("/dashs");
     } else {
       hist.push("/dasht");
@@ -115,6 +115,48 @@ export const signup = (body, hist) => async (dispatch) => {
     dispatch({ type: SIGNUP_SUCCESS });
     alert("registered, please login to continue");
     hist.push("");
+  } catch (error) {
+    if (error.response && error.response.data) {
+      dispatch({ type: SIGNUP_FAILURE, payload: error.response.data.error });
+    } else {
+      dispatch({ type: SIGNUP_FAILURE, payload: error });
+    }
+  }
+};
+
+export const verifySignupOtp = (otp, hist) => async (dispatch) => {
+  try {
+    dispatch({ type: SIGNUP });
+    const userData = JSON.parse(localStorage.getItem("user-data"));
+    const { data } = await axios.post("/auth/verify-signup-otp", {
+      userData: userData,
+      otp: otp,
+      email: userData.email,
+    });
+    dispatch({ type: SIGNUP_SUCCESS });
+    alert("registered, please login to continue");
+    localStorage.removeItem("user-data");
+    hist.push("");
+  } catch (error) {
+    if (error.response && error.response.data) {
+      dispatch({ type: SIGNUP_FAILURE, payload: error.response.data.error });
+    } else {
+      dispatch({ type: SIGNUP_FAILURE, payload: error });
+    }
+  }
+};
+
+export const sendSignupOtp = (body, hist) => async (dispatch) => {
+  try {
+    dispatch({ type: SIGNUP });
+    const { token, email, expires } = await axios.post(
+      "/auth/send-signup-otp",
+      { email: body.email, phone: body.phone, role: body.role }
+    );
+    alert("check email for otp");
+    localStorage.setItem("user-data", JSON.stringify(body));
+    dispatch({ type: SIGNUP_SUCCESS });
+    hist.push("/signup/verify-otp");
   } catch (error) {
     if (error.response && error.response.data) {
       dispatch({ type: SIGNUP_FAILURE, payload: error.response.data.error });

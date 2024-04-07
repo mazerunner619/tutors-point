@@ -1,16 +1,21 @@
 const jwt = require("jsonwebtoken");
 const db = require("../../Models");
 const bcrypt = require("bcrypt");
-require("dotenv/config");
+const { createError } = require("../../utils/utilFunctions");
+const { sendOtpMail } = require("../../utils/mailHelper");
 
 const login = {};
-const { createError } = require("../../utils/utilFunctions");
+
+const generateOtp = (numOfDigits) => {
+  const y = Math.pow(10, numOfDigits - 1);
+  return Math.floor(Math.random() * 9 * y + y).toString();
+};
 
 login.login = async (req, res, next) => {
   try {
-    const { as, email, password } = req.body;
-    const user = await db[as].findOne({ email }).populate({
-      path: as === "Student" ? "enrolledClasses requestedClasses" : "classes",
+    const { role, email, password } = req.body;
+    const user = await db[role].findOne({ email }).populate({
+      path: role === "Student" ? "enrolledClasses requestedClasses" : "classes",
     });
 
     if (user) {
@@ -38,34 +43,84 @@ login.login = async (req, res, next) => {
   }
 };
 
-login.signup = async (req, res, next) => {
+login.sendSignupOtp = async (req, res, next) => {
   try {
-    const { as, name, gender, email, phone, dob, password } = req.body;
-    //console.log('Body',req.body);
-
-    const user1 = await db[as].find({ email });
-    const user2 = await db[as].find({ phone });
-    if (user1.length > 0 || user2.length > 0) {
+    const { role, email, phone } = req.body;
+    // console.log("send otp : ", req.body);
+    const user = await db[role].find({ $or: [{ email }, { phone }] });
+    if (user.length > 0) {
       return next(createError("email/phone already exists", 409));
     }
-    const userData = {
-      ...req.body,
-      role: as.charAt(0).toLowerCase() + as.slice(1),
-      password: await bcrypt.hash(password, 10),
+
+    // generate otp
+    const otp = generateOtp(4);
+    const otpHash = await bcrypt.hash(otp, 10);
+
+    //send otp
+    const mailData = {
+      email: email,
+      subject: "OTP for signup",
+      otp: otp,
+      purpose: "signup",
     };
 
-    const newUser = await db[as].create(userData);
+    const mailRes = await sendOtpMail(mailData);
 
-    return res.json({
-      message: "Registered successfully",
-      status: true,
-    });
+    if (mailRes?.length > 0) {
+      const expires = Date.now() + 5 * 60 * 1000; // 5 minutes
+      const token = jwt.sign(
+        {
+          email,
+          otpHash,
+          expires,
+        },
+        process.env.JWT_SECRET_KEY
+      );
+
+      const resData = {
+        token,
+        email,
+        expires,
+      };
+      res
+        .cookie("otpToken", token, { httpOnly: true })
+        .send({ data: resData, message: "OK" });
+    } else {
+      return next(createError("could not send OTP!", 500));
+    }
   } catch (error) {
-    //console.log(error);
-    return next({
-      message: error.message,
-      status: false,
-    });
+    // console.log("generateOtp error : ", error);
+    return next(createError(error.message, error.statusCode));
+  }
+};
+
+login.verifySignupOtp = async (req, res, next) => {
+  try {
+    const { userData, otp } = req.body;
+    const isOtpCorrect = await bcrypt.compare(otp, req.otpHash);
+    if (!isOtpCorrect) {
+      return next(createError("incorrect otp", 400));
+    }
+    const role = userData.role;
+
+    const user = {
+      ...userData,
+      role: role.charAt(0).toLowerCase() + role.slice(1),
+      password: await bcrypt.hash(userData.password, 10),
+    };
+
+    await db[userData.role].create(user);
+
+    return res
+      .cookie("otpToken", "", {
+        httpOnly: true,
+      })
+      .send({
+        data: "",
+        message: "OK",
+      });
+  } catch (error) {
+    return next(createError(error.message, error.statusCode));
   }
 };
 
@@ -76,9 +131,8 @@ login.logout = async (req, res) => {
 login.currentLoggedInUser = async (req, res, next) => {
   try {
     // const token = req.cookies.token;
-    console.log("loqading current : ", req.headers.authorization);
     const token = req.headers.authorization.split(" ")[1];
-    console.log("current logged in user => ", token);
+    // console.log("current logged in user => ", token);
     if (token) {
       const verified = jwt.verify(token, process.env.JWT_SECRET_KEY);
       if (verified) {

@@ -32,12 +32,10 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   (res) => {
-    console.log("in react interceptor response |  no error");
     return res;
   },
   (error) => {
     if (error.response && error.response.status === 401) {
-      console.log("in react interceptor response |  401");
       clearLocalStorageAndAuthorization();
       window.location.href = "/";
     }
