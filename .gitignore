@@ -8,3 +8,4 @@ DB_clone
 test
 mailer.js
 rest-client.http
+request.rest

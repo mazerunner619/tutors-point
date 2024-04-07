@@ -1,10 +1,7 @@
 const controller = require("./controller");
 const router = require("express").Router();
 
-const {
-  checkTokenExpiry,
-  checkCorrectOtpUser,
-} = require("../../utils/middleWares");
+const { checkCorrectOtpUser } = require("../../utils/middleWares");
 
 router.post("/login", controller.login);
 router.post("/send-signup-otp", controller.sendSignupOtp);
