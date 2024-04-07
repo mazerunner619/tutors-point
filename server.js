@@ -37,11 +37,4 @@ app.listen(PORT, () => {
   console.log(`Server is running on port:` + PORT);
 });
 
-module.exports = app;
-
-/*
-dummy data for testing
-student - Atif, atif@gmail.com, #Redmi619
-tutor - Tahrim, tahrim@gmail.com, #Redmi619
-classes - 425819824, 830191725, 808016969
-*/
+// module.exports = app;

@@ -29,6 +29,7 @@
     "mongoose": "^5.13.2",
     "multer": "^1.4.3",
     "node": "^16.5.0",
+    "nodemailer": "^6.9.13",
     "nodemon": "^2.0.22",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
@@ -38,7 +39,6 @@
   "devDependencies": {
     "chai": "^1.0.0",
     "mocha": "^10.4.0",
-    "nodemailer": "^6.9.13",
     "supertest": "^6.3.4"
   }
 }
