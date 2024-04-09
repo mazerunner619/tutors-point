@@ -2,6 +2,37 @@
   text-align: center;
 } */
 
+.note {
+  margin-top: 5px;
+  text-align: center;
+  width: 100%;
+  background: red;
+  /* z-index: -1; */
+}
+
+.profile {
+  /* margin: 10px 2px 2px 2px; */
+  background: rgb(232, 195, 129);
+  height: 100vh;
+}
+
+.profile-data {
+  padding: 2px;
+}
+
+.profile-data Button {
+  margin-top: 10px;
+  background: black;
+  border: 0;
+  width: 100%;
+}
+
+.profile h3 {
+  text-align: center;
+  font-weight: bold;
+  padding-top: 10px;
+}
+
 body {
   width: 100%;
   margin: 0 auto;
@@ -10,7 +41,7 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
 }
-.popup-container{
+.popup-container {
   background: #0000001b;
   height: 100vh;
   width: 100vw;
@@ -18,7 +49,7 @@ body {
   z-index: 1;
 }
 
-.popup{
+.popup {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -32,7 +63,7 @@ body {
   padding: 0;
 }
 
-.auth-error{
+.auth-error {
   color: red;
 }
 

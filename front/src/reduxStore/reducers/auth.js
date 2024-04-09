@@ -12,6 +12,9 @@ import {
   SEND_REQUEST,
   SEND_REQUEST_FAILURE,
   SEND_REQUEST_SUCCESS,
+  SAVE_PROFILE,
+  SAVE_PROFILE_FAILURE,
+  SAVE_PROFILE_SUCCESS,
 } from "../actionTypes";
 
 const initialState = {
@@ -24,6 +27,8 @@ const initialState = {
   request_in_progress: false,
   send_request_processing: false,
   send_request_error: null,
+  saving_profile: false,
+  saving_profile_error: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -90,6 +95,30 @@ const authReducer = (state = initialState, action) => {
           requestedClasses: [action.payload, ...state.user.requestedClasses],
         },
       };
+
+    case SAVE_PROFILE:
+      return { ...state, saving_profile: true, saving_profile_error: null };
+    case SAVE_PROFILE_FAILURE:
+      return {
+        ...state,
+        saving_profile: false,
+        saving_profile_error: action.payload,
+      };
+    case SAVE_PROFILE_SUCCESS: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          name: action.payload.name,
+          gender: action.payload.gender,
+          dob: action.payload.dob,
+          email: action.payload.email,
+          phone: action.payload.phone,
+        },
+        saving_profile: false,
+        saving_profile_error: null,
+      };
+    }
 
     default:
       return state;

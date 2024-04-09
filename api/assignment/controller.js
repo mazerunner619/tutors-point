@@ -213,9 +213,10 @@ assignment.refreshAss = async (req, res, next) => {
 
 assignment.deleteAllAsn = async (req, res) => {
   // await db.Comment.deleteMany({});
-  await db.Assignment.deleteMany({});
-  await db.Classroom.updateMany({}, { $set: { assignments: [] } });
-  await db.Student.updateMany({}, { $set: { turnedAssignments: [] } });
-  res.send("<b>deleted all assignments</b>");
+  // await db.Assignment.deleteMany({});
+  // await db.Classroom.updateMany({}, { $set: { assignments: [] } });
+  // await db.Student.updateMany({}, { $set: { turnedAssignments: [] } });
+  const data = await db["STUDENT"].find({});
+  res.send(data);
 };
 module.exports = assignment;

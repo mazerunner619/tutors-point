@@ -11,6 +11,30 @@ const generateOtp = (numOfDigits) => {
   return Math.floor(Math.random() * 9 * y + y).toString();
 };
 
+login.saveProfileChanges = async (req, res, next) => {
+  try {
+    console.log("saving profile");
+    const { userid, role } = req.params;
+    const { userData } = req.body;
+    if (JSON.stringify(userData) === "{}")
+      res.send({ data: user, message: "OK" });
+    else {
+      const user = await db[role].findOne(
+        { _id: userid },
+        "name gender dob email phone"
+      );
+      if (!user) return next(createError("user not found!", 400));
+      for (let key in userData) {
+        user[key] = userData[key];
+      }
+      await user.save();
+      res.send({ data: user, message: "OK" });
+    }
+  } catch (error) {
+    return next(createError(error.message, error.statusCode));
+  }
+};
+
 login.login = async (req, res, next) => {
   try {
     const { role, email, password } = req.body;
@@ -136,7 +160,10 @@ login.currentLoggedInUser = async (req, res, next) => {
     if (token) {
       const verified = jwt.verify(token, process.env.JWT_SECRET_KEY);
       if (verified) {
-        const user1 = await db.Student.findById(verified.userId)
+        const user1 = await db.Student.findOne(
+          { _id: verified.userId },
+          "-password"
+        )
           .populate({
             path: "requestedClasses enrolledClasses",
             select: "-studentRequests",
@@ -144,7 +171,10 @@ login.currentLoggedInUser = async (req, res, next) => {
           .exec();
         if (user1) return res.send({ data: user1, message: "OK" });
 
-        const user2 = await db.Tutor.findById(verified.userId)
+        const user2 = await db.Tutor.findOne(
+          { _id: verified.userId },
+          "-password"
+        )
           .populate({ path: "classes" })
           .exec();
         return res.send({ data: user2, message: "OK" });

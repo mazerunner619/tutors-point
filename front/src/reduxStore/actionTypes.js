@@ -13,6 +13,10 @@ export const SIGNUP = "SIGNUP";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 
+export const SAVE_PROFILE = "SAVE_PROFILE";
+export const SAVE_PROFILE_SUCCESS = "SAVE_PROFILE_SUCCESS";
+export const SAVE_PROFILE_FAILURE = "SAVE_PROFILE_FAILURE";
+
 // classroom actions
 // for student -> all excluding pending request
 // for tutor -> all classroom details

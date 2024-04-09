@@ -41,7 +41,7 @@ export default function Navi() {
                   </Nav.Link>
                 </LinkContainer>
               ) : (
-                <LinkContainer to="/dashs">
+                <LinkContainer to="/profile">
                   <Nav.Link>
                     <FaUserCircle /> {user.name}
                   </Nav.Link>

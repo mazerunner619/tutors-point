@@ -14,6 +14,9 @@ import {
   SEND_REQUEST_FAILURE,
   SEND_REQUEST_SUCCESS,
   CLEAR_CLASSROOM,
+  SAVE_PROFILE,
+  SAVE_PROFILE_SUCCESS,
+  SAVE_PROFILE_FAILURE,
 } from "../actionTypes";
 
 import { setAuthToken } from "../../Utils/utilFunctions";
@@ -22,6 +25,28 @@ const clearLocalStorageAndAuthorization = () => {
   localStorage.clear();
   setAuthToken();
 };
+
+export const saveProfileChanges =
+  (userData, userid, role, hist) => async (dispatch) => {
+    try {
+      dispatch({ type: SAVE_PROFILE });
+      const { data } = await axios.post(
+        `/auth/profile/save/${userid}/${role}`,
+        {
+          userData,
+        }
+      );
+      dispatch({ type: SAVE_PROFILE_SUCCESS, payload: data.data });
+    } catch (error) {
+      if (error.response.data && error.response.data.error) {
+        // return { status: false, data: error.response.data.error.message };
+        dispatch({
+          type: SAVE_PROFILE_FAILURE,
+          payload: error.response.data.error,
+        });
+      } else dispatch({ type: SAVE_PROFILE_FAILURE, payload: error });
+    }
+  };
 
 export const getCurrentUser = (hist) => async (dispatch) => {
   try {
@@ -75,6 +100,7 @@ export const loadLoggedUser = (hist) => async (dispatch) => {
       hist.push("");
     } else {
       dispatch({ type: LOAD_LOGGED_USER, payload: data.data });
+      return data.data;
     }
   } catch (error) {
     dispatch({ type: LOGIN_FAILURE, payload: new Error("please re-login!") });

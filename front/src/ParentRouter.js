@@ -10,6 +10,7 @@ import DashT from "./tutorDashboard/DashT";
 import ClassroomT from "./tutorDashboard/ClassroomT";
 import ClassroomS from "./studentDashboard/ClassroomS";
 import Assignment from "./tutorDashboard/Assignment";
+import Profile from "./auths/profile";
 
 function Router() {
   return (
@@ -20,6 +21,7 @@ function Router() {
       </Route>
       <Route path="/dasht" component={DashT} />
       <Route path="/dashs" component={DashS} />
+      <Route path="/profile" component={Profile} />
       <Route path="/signup" exact component={Signup} />
       <Route path="/signup/verify-otp" component={verifySignupOtp} />
       <Route path="/classroomt/:id" component={ClassroomT} />
