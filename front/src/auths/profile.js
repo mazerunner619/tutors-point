@@ -96,9 +96,10 @@ const Profile = ({ match }) => {
             onChange={handleChange}
             maxLength={10}
           />
-          <p className="auth-error">
-            {saving_profile_error === null ? "" : saving_profile_error.message}
-          </p>
+          {saving_profile_error && (
+            <p className="auth-error">{saving_profile_error?.message}</p>
+          )}
+
           {saving_profile ? (
             <Button disabled={true} onClick={(e) => saveChanges(e)}>
               Saving...

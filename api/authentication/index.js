@@ -14,6 +14,8 @@ router.post(
   checkCorrectOtpUser,
   controller.verifySignupOtp
 );
+router.post("/password/reset/link", controller.sendPasswordResetLink);
+router.post("/password/reset/verify", controller.resetPassword);
 router.post("/logout", controller.logout);
 router.get("/current", controller.currentLoggedInUser);
 router.post(

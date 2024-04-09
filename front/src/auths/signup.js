@@ -158,10 +158,7 @@ export default function Exp({ match }) {
         </Row>
 
         <hr />
-
-        <p className="auth-error">
-          {signup_error === null ? "" : signup_error.message}
-        </p>
+        {signup_error && <p className="auth-error">{signup_error?.message}</p>}
         <Row>
           <Col>
             <Button

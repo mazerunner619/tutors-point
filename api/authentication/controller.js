@@ -2,7 +2,10 @@ const jwt = require("jsonwebtoken");
 const db = require("../../Models");
 const bcrypt = require("bcrypt");
 const { createError } = require("../../utils/utilFunctions");
-const { sendOtpMail } = require("../../utils/mailHelper");
+const {
+  sendOtpMail,
+  sendPasswordResetMail,
+} = require("../../utils/mailHelper");
 
 const login = {};
 
@@ -11,6 +14,56 @@ const generateOtp = (numOfDigits) => {
   return Math.floor(Math.random() * 9 * y + y).toString();
 };
 
+login.sendPasswordResetLink = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    let user = await db.Student.findOne({ email }, "_id");
+    if (!user) user = await db.Tutor.findOne({ email }, "_id");
+    if (!user) return next(createError("email not registered!", 400));
+    const token = jwt.sign(
+      {
+        email,
+        expiry: Date.now() + 5 * 60 * 1000,
+        userid: user._id,
+      },
+      process.env.JWT_SECRET_KEY
+    );
+    const resetUrl = `${process.env.BASE_URL}/password/reset/${token}`;
+
+    // send mail
+    const mailData = {
+      email: email,
+      subject: "Password reset Link | Tutor's point",
+      data: resetUrl,
+      purpose: "resetting password",
+    };
+    const mailRes = await sendPasswordResetMail(mailData);
+    if (mailRes?.length > 0) {
+      res.send({ data: "", message: "OK" });
+    } else {
+      return next(createError("could not send mail!", 500));
+    }
+  } catch (error) {
+    return next(createError(error.message, error.statusCode));
+  }
+};
+
+login.resetPassword = async (req, res, next) => {
+  try {
+    const { password, token } = req.body;
+    const verified = await jwt.verify(token, process.env.JWT_SECRET_KEY);
+    if (verified?.expiry > Date.now()) {
+      let user = await db.Student.findById(verified.userid);
+      if (!user) user = await db.Tutor.findById(verified.userid);
+      if (!user) return next(createError("user not found!", 400));
+      user.password = await bcrypt.hash(password, 10);
+      user.save();
+      res.send({ data: "", message: "OK" });
+    } else {
+      return next(createError("password reset link expired!", 410));
+    }
+  } catch (error) {}
+};
 login.saveProfileChanges = async (req, res, next) => {
   try {
     console.log("saving profile");
@@ -24,6 +77,29 @@ login.saveProfileChanges = async (req, res, next) => {
         "name gender dob email phone"
       );
       if (!user) return next(createError("user not found!", 400));
+
+      let alreadyExists = false;
+
+      if (userData["email"]) {
+        alreadyExists = await db[role].findOne(
+          { email: userData.email },
+          "_id"
+        );
+        console.log("already exists mail ", alreadyExists);
+        if (alreadyExists)
+          return next(createError("email already exists!", 409));
+      }
+
+      if (userData["phone"]) {
+        let alreadyExists = await db[role].findOne(
+          { phone: userData.phone },
+          "_id"
+        );
+        console.log("already exists phone ", alreadyExists);
+        if (alreadyExists)
+          return next(createError("phone already exists!", 409));
+      }
+
       for (let key in userData) {
         user[key] = userData[key];
       }
@@ -110,7 +186,7 @@ login.sendSignupOtp = async (req, res, next) => {
         .cookie("otpToken", token, { httpOnly: true })
         .send({ data: resData, message: "OK" });
     } else {
-      return next(createError("could not send OTP!", 500));
+      return next(createError("could not send mail!", 500));
     }
   } catch (error) {
     // console.log("generateOtp error : ", error);

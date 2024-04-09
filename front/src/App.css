@@ -64,7 +64,14 @@ body {
 }
 
 .auth-error {
+  /* margin-top: 5px; */
+  margin: 5px auto;
+  padding: 5px;
   color: red;
+  background: black;
+  border-radius: 10px;
+  text-align: center;
+  width: fit-content;
 }
 
 .plusButton {

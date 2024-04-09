@@ -15,6 +15,9 @@ import {
   SAVE_PROFILE,
   SAVE_PROFILE_FAILURE,
   SAVE_PROFILE_SUCCESS,
+  RESET_PASSWORD,
+  RESET_PASSWORD_FAILURE,
+  RESET_PASSWORD_SUCCESS,
 } from "../actionTypes";
 
 const initialState = {
@@ -29,6 +32,8 @@ const initialState = {
   send_request_error: null,
   saving_profile: false,
   saving_profile_error: null,
+  resetting_pass: false,
+  resetting_pass_error: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -119,6 +124,19 @@ const authReducer = (state = initialState, action) => {
         saving_profile_error: null,
       };
     }
+
+    case RESET_PASSWORD:
+      return { ...state, resetting_pass: true, resetting_pass_error: null };
+
+    case RESET_PASSWORD_FAILURE:
+      return {
+        ...state,
+        resetting_pass: false,
+        resetting_pass_error: action.payload,
+      };
+
+    case RESET_PASSWORD_SUCCESS:
+      return { ...state, resetting_pass: false };
 
     default:
       return state;

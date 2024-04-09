@@ -51,9 +51,9 @@ export default function VerifySignupOtp({ match }) {
           style={{ textAlign: "center", border: "0" }}
           type="text"
         />
-        <p className="auth-error">
-          {signup_error === null ? "" : signup_error.message}
-        </p>
+
+        {signup_error && <p className="auth-error">{signup_error?.message}</p>}
+        <br />
         <Button
           variant="success"
           type="submit"

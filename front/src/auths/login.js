@@ -83,9 +83,7 @@ export default function Exp({ match }) {
           </div>
         </Form.Group>
         <br />
-        <p className="auth-error">
-          {login_error === null ? "" : login_error.message}
-        </p>
+        {login_error && <p className="auth-error">{login_error?.message}</p>}
         <br />
         <Button
           style={{ display: "inline" }}
@@ -104,10 +102,13 @@ export default function Exp({ match }) {
         >
           Signin as Student
         </Button>
-        {/* <Button><a href="http://localhost:5000/auth/google">Signin with Google</a></Button> */}
       </Form>
       <p>
         not registered ? signup <a href="/signup">here</a>
+      </p>
+
+      <p>
+        <a href="/password/reset/link">forgot password</a>
       </p>
     </div>
   );

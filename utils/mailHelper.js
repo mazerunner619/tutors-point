@@ -27,15 +27,15 @@ const sendMail = (mailData) => {
   });
 };
 
-const otpHTMLTemplate = (otp, purpose) => {
+const otpHTMLTemplate = (data, purpose) => {
   return `
   <h3> Here is your OTP for ${purpose}</h3>
-  <p>${otp}</p>
+  <p>${data}</p>
   `;
 };
 
-const otpTextTemplate = (otp, purpose) => {
-  return `Here is your OTP for ${purpose} : ${otp}`;
+const otpTextTemplate = (data, purpose) => {
+  return `Here is your OTP for ${purpose} : ${data}`;
 };
 
 // data = {email, subject, text}
@@ -59,6 +59,39 @@ const sendOtpMail = async (data) => {
   });
 };
 
+const passwordResetHTMLTemplate = (data, purpose) => {
+  return `
+  <h3> Here is your LINK for ${purpose}</h3>
+  <a href=${data}>Reset Password</a>
+  `;
+};
+
+const passwordResetTextTemplate = (data, purpose) => {
+  return `Here is your LINK for ${purpose} :
+  ${data}`;
+};
+
+const sendPasswordResetMail = async (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const mailData = {
+        to: data.email,
+        subject: data.subject,
+        text: passwordResetTextTemplate(data.data, data.purpose),
+        html: passwordResetHTMLTemplate(data.data, data.purpose),
+      };
+      const res = await sendMail(mailData);
+      console.log("send password reset mail success : ", res);
+      resolve(res);
+    } catch (error) {
+      console.log(error);
+      console.log("send pass reset mail failed : ", error);
+      reject(err);
+    }
+  });
+};
+
 module.exports = {
   sendOtpMail,
+  sendPasswordResetMail,
 };

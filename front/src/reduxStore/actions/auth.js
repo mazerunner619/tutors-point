@@ -192,6 +192,43 @@ export const sendSignupOtp = (body, hist) => async (dispatch) => {
   }
 };
 
+export const resetPasswordLink = (email) => async (dispatch) => {
+  try {
+    console.log("dispatched reset password link");
+
+    await axios.post(`/auth/password/reset/link`, {
+      email,
+    });
+    alert("kindly check your email for link!");
+    window.close();
+  } catch (error) {
+    if (error.response && error.response.data) {
+      alert(error.response.data.error.message);
+    } else {
+      alert(error.message);
+    }
+  }
+};
+export const resetPassword =
+  ({ password, token, hist }) =>
+  async (dispatch) => {
+    try {
+      console.log("dispatched reset password");
+      const { data } = await axios.post(`/auth/password/reset/verify`, {
+        token,
+        password,
+      });
+      alert("Your password was reset successfully!");
+      hist.push("");
+    } catch (error) {
+      if (error.response && error.response.data) {
+        alert(error.response.data.error.message);
+      } else {
+        alert(error.message);
+      }
+    }
+  };
+
 export const logout = (hist) => async (dispatch) => {
   try {
     dispatch({ type: LOGOUT });

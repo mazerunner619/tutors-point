@@ -17,6 +17,10 @@ export const SAVE_PROFILE = "SAVE_PROFILE";
 export const SAVE_PROFILE_SUCCESS = "SAVE_PROFILE_SUCCESS";
 export const SAVE_PROFILE_FAILURE = "SAVE_PROFILE_FAILURE";
 
+export const RESET_PASSWORD = "RESET_PASSWORD";
+export const RESET_PASSWORD_FAILURE = "RESET_PASSWORD_FAILURE";
+export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
+
 // classroom actions
 // for student -> all excluding pending request
 // for tutor -> all classroom details
